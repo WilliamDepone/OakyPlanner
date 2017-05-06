@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+
     tools:context="com.oneoakatatime.www.oakyplanner.MainActivity">
 
     <TabHost
@@ -21,8 +23,8 @@
 
             <TabWidget
                 android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="343dp"
+                android:layout_height="60dp" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -36,13 +38,14 @@
                     android:orientation="vertical">
 
                     <CalendarView
-                        android:id="@+id/calendarView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:id="@+id/MonthlyCalendarView"
+                        android:layout_width="335dp"
+                        android:layout_height="350dp" />
 
                     <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:id="@+id/ListView1"
+                        android:layout_width="380dp"
+                        android:layout_height="90dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -54,7 +57,8 @@
                     <CalendarView
                         android:id="@+id/calendarView2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
                 <LinearLayout
