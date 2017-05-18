@@ -1,12 +1,15 @@
 package com.oneoakatatime.www.oakyplanner;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by User on 5/6/2017.
+/** Does all the database related things, table_name1 is for the events that the user puts in his planner
+ * table_name2 is for his account information.
  */
+
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "data.db";
@@ -25,10 +28,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PASSWORD = "PASSWORD";
     public static final String AGE = "AGE";
     public static final String GENDER = "GENDER";
-
+    public static final String[] ALL_KEYS_1 = new String[] {ID_1, YEAR, MONTH, DAY, HOUR, MINUTE, EVENT_DESCRIPTION, PLACE};
     public DataBaseHelper(Context context) {
         super(context,DATABASE_NAME, null, 1);
-        SQLiteDatabase db = this.getWritableDatabase();
+
     }
 
     @Override
@@ -44,10 +47,66 @@ catch(Exception e){
     }
 
     @Override
+    /* warning could drop both tables if one is upgraded */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME_1);
        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME_2);
         onCreate(db);
     }
+    public boolean insertData1(int year, int month, int day, int hour, int minute,String event_description,String place ){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(YEAR,year);
+        contentValues.put(MONTH,month);
+        contentValues.put(DAY,day);
+        contentValues.put(HOUR,hour);
+        contentValues.put(MINUTE,minute);
+        contentValues.put(EVENT_DESCRIPTION,event_description);
+        contentValues.put(PLACE,place);
+         long result = db.insert(TABLE_NAME_1,null,contentValues);
+        db.close();
+        if (result == -1)
+        return false;
+        else
+            return true;
+
+
+
+    }
+    public void deleteEvent(int year, int month, int day, int hour, int minute){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM"+ TABLE_NAME_1+ "WHERE" + YEAR +"=\"" + year + "\""+"AND"+MONTH +"=\"" + month + "\""+"AND"+DAY +"=\"" + day + "\""+"AND"+HOUR +"=\"" + hour + "\""+"AND"+MINUTE +"=\"" + minute + "\":");
+    db.close();
+    }
+
+  /** public void getTimeDescriptionData(int year, int month, int day) {
+       SQLiteDatabase db = this.getWritableDatabase();
+       String[] columns = {HOUR,MINUTE,EVENT_DESCRIPTION};
+Cursor c =db.query(TABLE_NAME_1,columns,TABLE_NAME_1+"='"+year+"'"+"AND"+TABLE_NAME_1+"='"+month+"'"+"AND"+TABLE_NAME_1+"='"+day+"'",null,null,null,null);
+while(c.moveToNext()){
+**/
+
+
+  public Cursor getAllRows(int year, int month, int day) {
+      SQLiteDatabase db = this.getWritableDatabase();
+      String[] columns = {"rowid _id",HOUR,MINUTE,EVENT_DESCRIPTION,ID_1};
+      Cursor c = 	db.query(TABLE_NAME_1,columns,YEAR+"='"+year+"'"+" AND "+MONTH+"='"+month+"'"+" AND "+DAY+"='"+day+"'"+" AND "+ID_1,null,null,null,null);
+
+      if (c != null) {
+          c.moveToFirst();
+
+      }
+
+      return c;
+  }
+  public Cursor getEventInfo(int id){
+      SQLiteDatabase db = this.getWritableDatabase();
+      String[] columns = {ID_1,HOUR,MINUTE,PLACE,EVENT_DESCRIPTION};
+      Cursor c = db.query(TABLE_NAME_1,columns,ID_1+"='"+id+"'",null,null,null,null);
+      if (c!= null){
+          c.moveToFirst();
+      }
+      return c;
+  }
 }

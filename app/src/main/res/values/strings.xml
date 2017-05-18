@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">OakyPlanner</string>
+    <string name="name">Name</string>
+    <string name="button">Button</string>
+    <string name="description">Description</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="place">Place</string>
+    <string name="name_2">Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
