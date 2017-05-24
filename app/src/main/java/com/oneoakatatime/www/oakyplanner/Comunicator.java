@@ -5,5 +5,8 @@ package com.oneoakatatime.www.oakyplanner;
  */
 
 public interface Comunicator {
-    public void rowIdTransfer(String id);
+    public void dateTransfer(int year,int month,int day);
+    public void createInputEdit(long rowId);
+    void populateActivity();
+
 }

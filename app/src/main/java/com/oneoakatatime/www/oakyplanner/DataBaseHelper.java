@@ -65,7 +65,7 @@ catch(Exception e){
         contentValues.put(EVENT_DESCRIPTION,event_description);
         contentValues.put(PLACE,place);
          long result = db.insert(TABLE_NAME_1,null,contentValues);
-        db.close();
+
         if (result == -1)
         return false;
         else
@@ -74,10 +74,10 @@ catch(Exception e){
 
 
     }
-    public void deleteEvent(int year, int month, int day, int hour, int minute){
+    public void deleteEvent(long id){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM"+ TABLE_NAME_1+ "WHERE" + YEAR +"=\"" + year + "\""+"AND"+MONTH +"=\"" + month + "\""+"AND"+DAY +"=\"" + day + "\""+"AND"+HOUR +"=\"" + hour + "\""+"AND"+MINUTE +"=\"" + minute + "\":");
-    db.close();
+        db.execSQL("DELETE FROM "+ TABLE_NAME_1+ " WHERE " + ID_1 +"='" + id +  "'");
+        db.close();
     }
 
   /** public void getTimeDescriptionData(int year, int month, int day) {
@@ -89,9 +89,10 @@ while(c.moveToNext()){
 
 
   public Cursor getAllRows(int year, int month, int day) {
+
       SQLiteDatabase db = this.getWritableDatabase();
       String[] columns = {"rowid _id",HOUR,MINUTE,EVENT_DESCRIPTION,ID_1};
-      Cursor c = 	db.query(TABLE_NAME_1,columns,YEAR+"='"+year+"'"+" AND "+MONTH+"='"+month+"'"+" AND "+DAY+"='"+day+"'"+" AND "+ID_1,null,null,null,null);
+      Cursor c = 	db.query(TABLE_NAME_1,columns,YEAR+"='"+year+"'"+" AND "+MONTH+"='"+month+"'"+" AND "+DAY+"='"+day+"'",null,null,null,null);
 
       if (c != null) {
           c.moveToFirst();
@@ -100,7 +101,7 @@ while(c.moveToNext()){
 
       return c;
   }
-  public Cursor getEventInfo(int id){
+  public Cursor getEventInfo(Long id){
       SQLiteDatabase db = this.getWritableDatabase();
       String[] columns = {ID_1,HOUR,MINUTE,PLACE,EVENT_DESCRIPTION};
       Cursor c = db.query(TABLE_NAME_1,columns,ID_1+"='"+id+"'",null,null,null,null);

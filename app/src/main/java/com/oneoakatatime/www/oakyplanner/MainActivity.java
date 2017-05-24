@@ -22,72 +22,30 @@ import java.util.TimeZone;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
-/** TODO 1) ADD THE NEW FRAGMENT FUNCTION 2) DELETE TASK WITH FLICK 3) ADD TABS 4) WEEKLY VIEW 5) DAILY VIEW 6) SPIDER 7) GOOGLE MAPS THING **/
+
+
+
+/** TODO 3) ADD TABS 4) WEEKLY VIEW 5) DAILY VIEW 6) SPIDER 7) GOOGLE MAPS THING **/
 public class MainActivity extends AppCompatActivity implements Comunicator {
     /* TODO REMOVE FABRICATED VARIABLES */
     int fabricated_event_year, fabricated_event_month, fabricated_event_day, fabricated_event_hour, fabricated_event_minute;
    int[] currentDate;
-    String [] rowIds;
+    Long rowIds;
     String fabricated_event_description, fabricated_event_place;
     CalendarView monthlyCalendar;
     DataBaseHelper myDb;
+    int selectedYear,selectedMonth,selectedDay;
 
-TimeZone tz;
+
     boolean check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        currentDate = new int[3];
-        check = false;
-
-        tz = TimeZone.getDefault();
-        Calendar calendar = new GregorianCalendar(tz);
-        currentDate[0] = calendar.get(Calendar.YEAR);
-        currentDate[1] = calendar.get(Calendar.MONTH);
-        currentDate[2] = calendar.get(Calendar.DAY_OF_MONTH);
-
         myDb = new DataBaseHelper(this);
-        monthlyCalendar = (CalendarView) findViewById(R.id.MonthlyCalendarView);
         fabricateData();
-        myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_day,fabricated_event_hour,fabricated_event_minute,fabricated_event_description,fabricated_event_place);
-     /** TODO CHECK IF THIS WORKS ON A DIFFIRENT DATE, IT POTENTIONALLY COULD NOT **/
-         rowIds= populateListView(currentDate[0],currentDate[1],currentDate[2]);
-        final ListView monthlyListView = (ListView) findViewById(R.id.ListView1);
-        monthlyListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                input_edit frag = new input_edit();
-                FragmentManager manager = getFragmentManager();
-
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.add(R.id.main_activity_layout,frag,"input_edit_fragment");
-                transaction.commit();
-                manager.executePendingTransactions();
-                input_edit fragment1= (input_edit) manager.findFragmentByTag("input_edit_fragment");
-                fragment1.mapping(rowIds[position],myDb);
-
-
-                return false;
-            }
-        });
-
-
-        monthlyCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-/* Passes in the currently selected date and populates the list view if there is something to populate it with.*/
-             rowIds = populateListView(year,month,dayOfMonth);
-
-            }
-        });
-
-
-
-
+        populateActivity();
     }
 
 
@@ -95,51 +53,77 @@ TimeZone tz;
     private void fabricateData(){
         fabricated_event_year = 2017;
         fabricated_event_month = 5;
-        fabricated_event_day = 11;
-        fabricated_event_hour = 12;
-        fabricated_event_minute = 0;
+        fabricated_event_day = 22;
+        int i;
+        i=0;
+        fabricated_event_minute = 12;
         fabricated_event_description = "this is dummy data";
         fabricated_event_place = "Placey-mcplacey";
+        while(i<10){
+            fabricated_event_hour =i;
+            i++;
+            myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_day,fabricated_event_hour,fabricated_event_minute,fabricated_event_description,fabricated_event_place);
 
+        }
+        fabricated_event_day = 23;
+        while(i<20){
+            fabricated_event_hour =i;
+            i++;
+            myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_day,fabricated_event_hour,fabricated_event_minute,fabricated_event_description,fabricated_event_place);
+
+        }
     }
-    private String[] populateListView(int year, int month, int day) {
-        String[] fromDataBaseRowId = new String[0];
-        ListView monthlyListView = (ListView) findViewById(R.id.ListView1);
-        if (check == true) {
-            monthlyListView.clearChoices();
-        }
-
-        Cursor cursor = myDb.getAllRows(year, month, day);
-        startManagingCursor(cursor);
-        /** take from database time and description**/
-        String[] fromDataBaseTD = new String[]{DataBaseHelper.HOUR, DataBaseHelper.MINUTE, DataBaseHelper.EVENT_DESCRIPTION};
 
 
-        int[] toViewIds = new int[]{R.id.tpd_hours, R.id.tpd_minutes, R.id.tpd_description};
+    @Override
+    public void populateActivity() {
 
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(
-                this,
-                R.layout.tpd_row,
-                cursor,
-                fromDataBaseTD,
-                toViewIds
-        );
+       list_view_fragment frag2 = new list_view_fragment();
+        calendar_fragment frag1 = new calendar_fragment();
+        FragmentManager manager = getFragmentManager();
 
-        monthlyListView.setAdapter(cursorAdapter);
-        if (cursor != null) {
-            check = true;
-            /** TODO FIX THIS DAMN THING */
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.main_activity_layout,frag1,"calendar_fragment");
+        transaction.add(R.id.main_activity_layout,frag2,"list_view_fragment");
 
-            if (cursor.getCount() > 0) {
-                fromDataBaseRowId = new String[]{cursor.getString(cursor.getColumnIndex("ID_1"))};
-            }
+        manager.executePendingTransactions();
+        transaction.addToBackStack(null);
+        transaction.commit();
 
-        }
-        return fromDataBaseRowId;
+
+        /**calendar_fragment fragment1= (calendar_fragment) manager.findFragmentByTag("calendar_fragment");
+        list_view_fragment fragment2= (list_view_fragment) manager.findFragmentByTag("list_view_fragment");**/
+
+
+
+
     }
 
     @Override
-    public void rowIdTransfer(String id) {
+    public void dateTransfer(int year, int month, int day) {
+        FragmentManager manager = getFragmentManager();
+        list_view_fragment fragment2 = (list_view_fragment) manager.findFragmentByTag("list_view_fragment");
+        fragment2.populateListView(year,month,day);
+        selectedYear = year;
+        selectedMonth = month;
+        selectedDay = day;
+    }
+
+    @Override
+    public void createInputEdit(long rowIds) {
+        input_edit frag3 = new input_edit();
+        FragmentManager manager = getFragmentManager();
+        calendar_fragment frag1 = (calendar_fragment) manager.findFragmentByTag("calendar_fragment");
+        list_view_fragment frag2 = (list_view_fragment)manager.findFragmentByTag("list_view_fragment");
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.remove(frag1);
+        transaction.remove(frag2);
+        transaction.add(R.id.main_activity_layout,frag3,"input_edit_fragment");
+        transaction.addToBackStack("calendar_fragment");
+        transaction.addToBackStack("list_view_fragment");
+        manager.executePendingTransactions();
+        transaction.commit();
+        frag3.values(rowIds,myDb,selectedYear,selectedMonth,selectedDay);
 
     }
 }
