@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
 
 
-public class input_edit extends Fragment {
+public class input_edit extends android.support.v4.app.Fragment {
     TextView input_hours, input_minutes,fragment_place,fragment_description;
     Spinner input_hours_spinner,input_minutes_spinner;
     EditText input_place_edit,input_description_edit;
@@ -29,7 +29,7 @@ public class input_edit extends Fragment {
     Comunicator com;
     DataBaseHelper myDb;
     Long rowId;
-    int selectedYear,selectedMonth,selectedDay;
+    int selectedYear,selectedMonth,selectedWeek,selectedDay,tab;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,14 +103,16 @@ public class input_edit extends Fragment {
             public void onClick(View v) {
             /** TODO 1) Save all data into the database with a new record
              * 2) close fragment 3, re-open fragment 1 and 2 **/
-            myDb.insertData1(selectedYear,selectedMonth,selectedDay,input_hours_spinner.getSelectedItemPosition(),input_minutes_spinner.getSelectedItemPosition(),input_description_edit.getText().toString(),input_place_edit.getText().toString());
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
+
+            // TODO FIX THIS DAMN THING myDb.insertData1(selectedYear,selectedMonth,selectedWeek,selectedDay,input_hours_spinner.getSelectedItemPosition(),input_minutes_spinner.getSelectedItemPosition(),input_description_edit.getText().toString(),input_place_edit.getText().toString());
+                android.support.v4.app.FragmentManager manager = getFragmentManager();
+                android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
                 input_edit frag3 = (input_edit) manager.findFragmentByTag("input_edit_fragment");
                 transaction.remove(frag3);
                 transaction.addToBackStack("input_edit_fragment");
                 transaction.commit();
-                com.populateActivity();
+                tab=1;
+
 
             }
         });
@@ -178,11 +180,12 @@ public class input_edit extends Fragment {
          input_description_edit.setText(c.getString(4));
 
     }
-    public void values(Long id,DataBaseHelper myDbinput,int selectedYearinput,int selectedMonthinput,int selectedDayinput){
+    public void values(Long id,DataBaseHelper myDbinput,int selectedYearinput,int selectedMonthinput,int selectedWeekinput,int selectedDayinput){
         rowId = id;
         myDb = myDbinput;
         selectedYear = selectedYearinput;
         selectedMonth = selectedMonthinput;
+        selectedWeek = selectedWeekinput;
         selectedDay=selectedDayinput;
 
     }

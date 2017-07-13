@@ -25,7 +25,7 @@ import com.oneoakatatime.www.oakyplanner.SwipeDetector;
  * Created by User on 5/18/2017.
  */
 
-public class list_view_fragment extends Fragment {
+public class list_view_fragment extends android.support.v4.app.Fragment {
     int counter;
     ListView fragment_listView;
     Comunicator com;
@@ -33,7 +33,7 @@ public class list_view_fragment extends Fragment {
     int[] currentDate;
     TimeZone tz;
     SwipeDetector swipeDetector;
-    int selectedYear,selectedMonth,selecetedDay;
+    int selectedYear,selectedMonth,selectedWeek,selecetedDay;
 
 
     @Override
@@ -131,7 +131,46 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
         }
         return fromDataBaseRowId;
     }
+    public String[] populateWeeklyListView(int year, int month, int week) {
+        ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment_listView);
+        String[] fromDataBaseRowId = new String[0];
+        selectedWeek = week;
+        selectedMonth = month;
+        selectedYear = year;
 
+        if (counter >0) {
+            fragment_listView.clearChoices();
+        }
+
+        myDb = new DataBaseHelper(this.getActivity());
+        Cursor cursor = myDb.getAllWeeklyRows(year, month, week);
+
+        /** take from database time and description**/
+        String[] fromDataBaseTD = new String[]{DataBaseHelper.HOUR, DataBaseHelper.MINUTE, DataBaseHelper.EVENT_DESCRIPTION};
+
+
+        int[] toViewIds = new int[]{R.id.week_day, R.id.week_hours, R.id.week_minutes,R.id.week_description};
+
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(
+                this.getActivity(),
+                R.layout.weekly_list_view_row,
+                cursor,
+                fromDataBaseTD,
+                toViewIds
+        );
+
+        fragment_listView.setAdapter(cursorAdapter);
+        if (cursor != null) {
+            counter++;
+            /** TODO FIX THIS DAMN THING */
+
+            if (cursor.getCount() > 0) {
+                fromDataBaseRowId = new String[]{cursor.getString(cursor.getColumnIndex("ID_1"))};
+            }
+
+        }
+        return fromDataBaseRowId;
+    }
 
 }
 
