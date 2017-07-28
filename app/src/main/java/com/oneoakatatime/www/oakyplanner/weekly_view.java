@@ -4,17 +4,13 @@ import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CalendarView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,8 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import com.oneoakatatime.www.oakyplanner.getCurrentDateInfo;
-import com.oneoakatatime.www.oakyplanner.SwipeAdapter;
+
+
 
 import static com.oneoakatatime.www.oakyplanner.DataBaseHelper.DAYOFWEEK;
 
@@ -41,7 +37,7 @@ public class weekly_view extends android.support.v4.app.Fragment {
     DataBaseHelper myDb;
     int[] currentDate;
     int selectedYear,selectedMonth,selectedWeek,selecetedDay;
-    Comunicator com;
+
     int week,tab;
     Calendar dateCalendar;
     TimeZone tz;
@@ -81,7 +77,7 @@ public class weekly_view extends android.support.v4.app.Fragment {
         ExpandableListView weekly_listView = (ExpandableListView) getActivity().findViewById(R.id.weekly_listView);
 
         populateWeeklyListView(currentDate[0],currentDate[1],selectedWeek);
-        com = (Comunicator) getActivity();
+
         final SwipeDetector swipeDetector = new SwipeDetector();
         weekly_listView.setOnTouchListener(swipeDetector);
 

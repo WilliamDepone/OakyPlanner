@@ -1,13 +1,10 @@
 package com.oneoakatatime.www.oakyplanner;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,19 +14,21 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.EditText;
-import android.widget.Spinner;
-import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 
-public class input_edit extends android.support.v4.app.Fragment {
+public class input_edit extends android.app.Fragment {
     TextView input_hours, input_minutes,fragment_place,fragment_description;
-    Spinner input_hours_spinner,input_minutes_spinner;
+    Spinner input_hours_spinner_from,input_hours_spinner_until,input_minutes_spinner_from,input_minutes_spinner_until;
     EditText input_place_edit,input_description_edit;
     Button input_button;
-    Comunicator com;
-    DataBaseHelper myDb;
-    Long rowId;
-    int selectedYear,selectedMonth,selectedWeek,selectedDay,tab;
+DataBaseHelper myDb;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,14 +36,16 @@ public class input_edit extends android.support.v4.app.Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private int event_id;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
+    @Override
+    public void setArguments(Bundle args) {
 
-
-
+        super.setArguments(args);
+    }
 
 
     @Override
@@ -61,57 +62,57 @@ public class input_edit extends android.support.v4.app.Fragment {
 
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final DataBaseHelper myDb = new DataBaseHelper(this.getActivity());
         input_hours = (TextView) getActivity().findViewById(R.id.input_hours);
         input_minutes = (TextView) getActivity().findViewById(R.id.input_minutes);
         fragment_place = (TextView) getActivity().findViewById(R.id.fragment_place);
         fragment_description = (TextView) getActivity().findViewById(R.id.fragment_description);
-        input_hours_spinner = (Spinner) getActivity().findViewById(R.id.input_hours_spinner);
-        input_minutes_spinner = (Spinner) getActivity().findViewById(R.id.input_minutes_spinner);
+        input_hours_spinner_from = (Spinner) getActivity().findViewById(R.id.input_hours_spinner_from);
+        input_minutes_spinner_from = (Spinner) getActivity().findViewById(R.id.input_minutes_spinner_from);
+        input_minutes_spinner_until = (Spinner) getActivity().findViewById(R.id.input_minutes_spinner_until);
+        input_hours_spinner_until = (Spinner) getActivity().findViewById(R.id.input_hours_spinner_until);
+
         input_place_edit = (EditText) getActivity().findViewById(R.id.input_place_edit);
         input_description_edit = (EditText) getActivity().findViewById(R.id.input_description_edit);
         input_button = (Button) getActivity().findViewById(R.id.input_button);
 
-        com= (Comunicator) getActivity();
 
-        super.onActivityCreated(savedInstanceState);
+
+
 
         Integer[] hours_array = new Integer[24];
         Integer[] minutes_array = new Integer[60];
         populateArrays(hours_array,minutes_array);
 
         ArrayAdapter arrayAdapter_hours = new ArrayAdapter(this.getActivity(),R.layout.support_simple_spinner_dropdown_item,hours_array);
-        input_hours_spinner.setAdapter(arrayAdapter_hours);
+        input_hours_spinner_from.setAdapter(arrayAdapter_hours);
+        input_hours_spinner_until.setAdapter(arrayAdapter_hours);
+
         ArrayAdapter arrayAdapter_minutes = new ArrayAdapter(this.getActivity(),R.layout.support_simple_spinner_dropdown_item,minutes_array);
-        input_minutes_spinner.setAdapter(arrayAdapter_minutes);
-        mapping(rowId,myDb);
+        input_minutes_spinner_from.setAdapter(arrayAdapter_minutes);
+        input_minutes_spinner_until.setAdapter(arrayAdapter_minutes);
+        mapping(getArguments().getInt("Event id"),myDb);
         input_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             /** TODO 1) Save all data into the database with a new record
              * 2) close fragment 3, re-open fragment 1 and 2 **/
+                TimeZone tz = TimeZone.getDefault();
+                java.util.Calendar calendarForWeek = new GregorianCalendar(tz);
+                final java.util.Calendar dateCalendar = new java.util.GregorianCalendar(tz);
+                dateCalendar.set(java.util.Calendar.YEAR,getArguments().getInt("Selected year"));
+                dateCalendar.set(java.util.Calendar.MONTH,getArguments().getInt("Selected month"));
+                dateCalendar.set(java.util.Calendar.DAY_OF_MONTH,getArguments().getInt("Selected day"));
+                int selectedWeek= dateCalendar.get(java.util.Calendar.WEEK_OF_YEAR);
 
-            // TODO FIX THIS DAMN THING myDb.insertData1(selectedYear,selectedMonth,selectedWeek,selectedDay,input_hours_spinner.getSelectedItemPosition(),input_minutes_spinner.getSelectedItemPosition(),input_description_edit.getText().toString(),input_place_edit.getText().toString());
-                android.support.v4.app.FragmentManager manager = getFragmentManager();
-                android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
-                input_edit frag3 = (input_edit) manager.findFragmentByTag("input_edit_fragment");
-                transaction.remove(frag3);
-                transaction.addToBackStack("input_edit_fragment");
-                transaction.commit();
-                tab=1;
+             myDb.insertData1(getArguments().getInt("Selected year"),getArguments().getInt("SelectedMonth"),selectedWeek,getArguments().getInt("Selected day"),input_hours_spinner_from.getSelectedItemPosition(),input_hours_spinner_until.getSelectedItemPosition(),input_minutes_spinner_from.getSelectedItemPosition(),input_minutes_spinner_until.getSelectedItemPosition(),input_description_edit.getText().toString(),input_place_edit.getText().toString());
+
+                EventBus.getDefault().post(new MyRecyclerAdapter.ChangeFragmentToTwoEvent(2,0,0,0,0));
+
 
 
             }
@@ -166,28 +167,22 @@ public class input_edit extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void mapping(Long id, DataBaseHelper myDb){
+    public void mapping(int event_id,DataBaseHelper myDb){
 
-
-
-        Cursor c = myDb.getEventInfo(id);
-        int event_hour,event_minute;
-        event_hour = Integer.parseInt(c.getString(1));
-        event_minute = Integer.parseInt(c.getString(2));
-         input_hours_spinner.setSelection(event_hour);
-         input_minutes_spinner.setSelection(event_minute);
-         input_place_edit.setText(c.getString(3));
-         input_description_edit.setText(c.getString(4));
-
-    }
-    public void values(Long id,DataBaseHelper myDbinput,int selectedYearinput,int selectedMonthinput,int selectedWeekinput,int selectedDayinput){
-        rowId = id;
-        myDb = myDbinput;
-        selectedYear = selectedYearinput;
-        selectedMonth = selectedMonthinput;
-        selectedWeek = selectedWeekinput;
-        selectedDay=selectedDayinput;
+        Cursor c = myDb.getEventInfo((long)event_id);
+        int event_hour_from,event_hour_until,event_minute_from,even_minute_until;
+        event_hour_from = Integer.parseInt(c.getString(0));
+        event_hour_until = Integer.parseInt(c.getString(1));
+        event_minute_from = Integer.parseInt(c.getString(2));
+        even_minute_until = Integer.parseInt(c.getString(3));
+         input_hours_spinner_from.setSelection(event_hour_from);
+         input_minutes_spinner_from.setSelection(event_minute_from);
+        input_hours_spinner_until.setSelection(event_hour_until);
+        input_minutes_spinner_until.setSelection(even_minute_until);
+         input_place_edit.setText(c.getString(4));
+         input_description_edit.setText(c.getString(5));
 
     }
+
 
 }

@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentState1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.oneoakatatime.www.oakyplanner.Fragment1">
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/materialCalendarView"
+        android:layout_width="match_parent"
+        android:layout_height="318dp"
+        app:mcv_selectionColor="#00F"
+        app:mcv_showOtherDates="all" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/month_event_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true" />
+
+</LinearLayout>

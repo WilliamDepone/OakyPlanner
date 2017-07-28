@@ -1,10 +1,6 @@
 package com.oneoakatatime.www.oakyplanner;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import com.oneoakatatime.www.oakyplanner.SwipeDetector;
+
+
 
 /**
  * Created by User on 5/18/2017.
@@ -28,7 +24,7 @@ import com.oneoakatatime.www.oakyplanner.SwipeDetector;
 public class list_view_fragment extends android.support.v4.app.Fragment {
     int counter;
     ListView fragment_listView;
-    Comunicator com;
+
     DataBaseHelper myDb;
     int[] currentDate;
     TimeZone tz;
@@ -41,7 +37,7 @@ public class list_view_fragment extends android.support.v4.app.Fragment {
         counter = 0;
         ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment_listView);
         super.onActivityCreated(savedInstanceState);
-        com= (Comunicator) getActivity();
+
         currentDate = new int[3];
         tz = TimeZone.getDefault();
         Calendar calendar = new GregorianCalendar(tz);
@@ -75,7 +71,7 @@ public class list_view_fragment extends android.support.v4.app.Fragment {
         fragment_listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                com.createInputEdit(id);
+
 
 
                 return false;
@@ -91,7 +87,7 @@ public class list_view_fragment extends android.support.v4.app.Fragment {
     }
 
 
-    public String[] populateListView(int year, int month, int day) {
+    public void populateListView(int year, int month, int day) {/*
 ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment_listView);
         String[] fromDataBaseRowId = new String[0];
         selecetedDay = day;
@@ -105,7 +101,7 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
         myDb = new DataBaseHelper(this.getActivity());
         Cursor cursor = myDb.getAllRows(year, month, day);
 
-        /** take from database time and description**/
+
         String[] fromDataBaseTD = new String[]{DataBaseHelper.HOUR, DataBaseHelper.MINUTE, DataBaseHelper.EVENT_DESCRIPTION};
 
 
@@ -122,16 +118,16 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
         fragment_listView.setAdapter(cursorAdapter);
         if (cursor != null) {
             counter++;
-            /** TODO FIX THIS DAMN THING */
+
 
             if (cursor.getCount() > 0) {
                 fromDataBaseRowId = new String[]{cursor.getString(cursor.getColumnIndex("ID_1"))};
             }
 
         }
-        return fromDataBaseRowId;
-    }
-    public String[] populateWeeklyListView(int year, int month, int week) {
+
+   */ }
+    public void populateWeeklyListView(int year, int month, int week) {/*
         ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment_listView);
         String[] fromDataBaseRowId = new String[0];
         selectedWeek = week;
@@ -145,7 +141,7 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
         myDb = new DataBaseHelper(this.getActivity());
         Cursor cursor = myDb.getAllWeeklyRows(year, month, week);
 
-        /** take from database time and description**/
+
         String[] fromDataBaseTD = new String[]{DataBaseHelper.HOUR, DataBaseHelper.MINUTE, DataBaseHelper.EVENT_DESCRIPTION};
 
 
@@ -162,14 +158,14 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
         fragment_listView.setAdapter(cursorAdapter);
         if (cursor != null) {
             counter++;
-            /** TODO FIX THIS DAMN THING */
+
 
             if (cursor.getCount() > 0) {
                 fromDataBaseRowId = new String[]{cursor.getString(cursor.getColumnIndex("ID_1"))};
             }
 
         }
-        return fromDataBaseRowId;
+*/
     }
 
 }

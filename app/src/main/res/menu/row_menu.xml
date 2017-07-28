@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/row_detail_menu">
+<item android:id = "@+id/more__row_details"
+    android:title ="@string/row_menu_details_details"
+    />
+    <item android:id = "@+id/delete_event_row"
+    android:title ="@string/row_detail_menu_delete"
+    />
+
+
+</menu>

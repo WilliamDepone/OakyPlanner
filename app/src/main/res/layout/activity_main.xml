@@ -10,32 +10,5 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/sliding_tabs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:tabMode="fixed"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <com.oneoakatatime.www.oakyplanner.NonSwipeableViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="368dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="-16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
 
 </android.support.constraint.ConstraintLayout>

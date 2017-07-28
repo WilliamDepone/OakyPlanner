@@ -1,7 +1,6 @@
 package com.oneoakatatime.www.oakyplanner;
 
 import android.database.Cursor;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,14 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -33,7 +31,7 @@ public class daily_view extends android.support.v4.app.Fragment {
     DataBaseHelper myDb;
     int[] currentDate;
     int selectedYear,selectedMonth,selectedDay;
-    Comunicator com;
+
     int week;
     TimeZone tz;
     Bundle bundle;
@@ -56,7 +54,7 @@ public class daily_view extends android.support.v4.app.Fragment {
         ListView daily_listView = (ListView) getActivity().findViewById(R.id.daily_listView);
 
         populateDailyListView(currentDate[0],currentDate[1],selectedDay);
-        com = (Comunicator) getActivity();
+
         final SwipeDetector swipeDetector = new SwipeDetector();
         daily_listView.setOnTouchListener(swipeDetector);
 
@@ -87,8 +85,8 @@ public class daily_view extends android.support.v4.app.Fragment {
         return f;
     }
 
-    public String[] populateDailyListView(int year, int month, int day) {
-        month++;
+    public void populateDailyListView(int year, int month, int day) {
+      /*  month++;
         ListView daily_listView = (ListView) getActivity().findViewById(R.id.daily_listView);
         String[] fromDataBaseRowId = new String[0];
 
@@ -102,7 +100,7 @@ public class daily_view extends android.support.v4.app.Fragment {
         Cursor cursor = myDb.getAllRows(year,month,day);
 
 
-        /** take from database time and description**/
+
         String[] fromDataBaseTD = new String[]{ DataBaseHelper.HOUR, DataBaseHelper.MINUTE,DataBaseHelper.PLACE,DataBaseHelper.EVENT_DESCRIPTION};
 
 
@@ -126,7 +124,8 @@ public class daily_view extends android.support.v4.app.Fragment {
             }
 
         }
-        return fromDataBaseRowId;
+        return fromDataBaseRowId;*/
+
     }
 
     @Override

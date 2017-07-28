@@ -1,31 +1,23 @@
 package com.oneoakatatime.www.oakyplanner;
 
-import android.content.ContentResolver;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.icu.util.Calendar;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
-import android.view.View;
 import android.widget.SimpleCursorAdapter;
+
+
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -40,7 +32,7 @@ public class monthlyView extends android.support.v4.app.Fragment {
     SwipeDetector swipeDetector;
 
     CalendarView calendar;
-    Comunicator com;
+
     int week,tab;
     Calendar dateCalendar;
     TimeZone tz;
@@ -89,7 +81,6 @@ public class monthlyView extends android.support.v4.app.Fragment {
         EventBus.getDefault().post(new CurrentWeekSelected(currentDate[0],currentDate[1],currentDate[2],currentDate[3]));}
         //calendar fragment start
 
-        com = (Comunicator) getActivity();
 
 
         final java.util.Calendar dateCalendar = new java.util.GregorianCalendar(tz);
@@ -137,7 +128,7 @@ public class monthlyView extends android.support.v4.app.Fragment {
 
 
 
-        com= (Comunicator) getActivity();
+
 
         final SwipeDetector swipeDetector = new SwipeDetector();
         fragment_listView.setOnTouchListener(swipeDetector);
@@ -161,7 +152,7 @@ public class monthlyView extends android.support.v4.app.Fragment {
         fragment_listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                com.createInputEdit(id);
+
 
 
                 return false;
@@ -172,8 +163,8 @@ public class monthlyView extends android.support.v4.app.Fragment {
 
     }
 
-    public String[] populateListView(int year, int month, int day) {
-        month++;
+    public void populateListView(int year, int month, int day) {
+       /* month++;
         String[] fromDataBaseRowId = new String[0];
         ListView fragment_listView = (ListView)getActivity().findViewById(R.id.fragment_listView);
 
@@ -185,7 +176,6 @@ public class monthlyView extends android.support.v4.app.Fragment {
 
 
 
-        /** take from database time and description**/
         String[] fromDataBaseTD = new String[]{DataBaseHelper.HOUR, DataBaseHelper.MINUTE, DataBaseHelper.EVENT_DESCRIPTION};
 
 
@@ -202,13 +192,13 @@ public class monthlyView extends android.support.v4.app.Fragment {
         fragment_listView.setAdapter(cursorAdapter);
         if (cursor != null) {
             counter++;
-            /** TODO FIX THIS DAMN THING */
+
 
 
 
         }
 
-        return fromDataBaseRowId;
+       */
     }
     public static monthlyView newInstance() {
 

@@ -2,32 +2,26 @@ package com.oneoakatatime.www.oakyplanner;
 
 
 
-import android.support.design.widget.TabLayout;
+import android.app.FragmentTransaction;
+import android.app.Fragment;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.CalendarView;
-import android.support.v4.view.ViewPager;
 
-import android.support.v4.app.Fragment;
-import android.app.FragmentTransaction;
 import android.app.FragmentManager;
 
-import android.support.v4.view.ViewPager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.content.Context;
+
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
 /** TODO  4) WEEKLY VIEW   5.5) Login screen 6) SPIDER 7) GOOGLE MAPS THING **/
-public class MainActivity extends AppCompatActivity implements Comunicator {
+public class MainActivity extends AppCompatActivity {
     /* TODO REMOVE FABRICATED VARIABLES */
-    int fabricated_event_year, fabricated_event_month,fabricated_event_week, fabricated_event_day, fabricated_event_hour, fabricated_event_minute;
-   int[] currentDate;
+    int fabricated_event_year, fabricated_event_month,fabricated_event_week, fabricated_event_day, fabricated_event_hour, fabricated_event_minute,id;
+    Fragment frag0;
 
     String fabricated_event_description, fabricated_event_place;
 
@@ -43,7 +37,10 @@ public class MainActivity extends AppCompatActivity implements Comunicator {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDb = new DataBaseHelper(this);
-        fabricateWeeklyData();
+        //fabricateWeeklyData();
+        id = 0;
+         fragmentStateChange(id,null,0,0,0,0);
+        /** Fabricated until further notice
         viewPager=(NonSwipeableViewPager) findViewById(R.id.view_pager);
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(swipeAdapter);
@@ -78,9 +75,65 @@ public class MainActivity extends AppCompatActivity implements Comunicator {
 
             }
         });
+**/
+
+    }
+
+    private void  fragmentStateChange(int id,Fragment frag0,int event_id,int selectedYear,int selectedMonth, int selectedDay){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction  transaction = fragmentManager.beginTransaction();
+
+        switch(id){
+            case 0: {Fragment1 frag = new Fragment1();
+
+                transaction.add(R.id.main_activity_layout,frag,"fragment_state_1");
+                transaction.addToBackStack("fragment_state_1");
+                transaction.commit();
+                break;
+
+            }
+            case 1:{
+
+                frag0 =  fragmentManager.findFragmentByTag("fragment_state_1");
+                transaction.addToBackStack("fragment_state_1");
+                transaction.remove(frag0);
+                input_edit frag1 = new input_edit();
+                Bundle bundle = new Bundle();
+                bundle.putInt("Event id",event_id);
+                bundle.putInt("Selected year",selectedYear);
+                bundle.putInt("Selected month",selectedMonth);
+                bundle.putInt("Selected day",selectedDay);
+                frag1.setArguments(bundle);
+                transaction.add(R.id.main_activity_layout,frag1,"fragment_state_2");
+                transaction.commit();
+                break;
+
+            }
+            case 2:{
+
+                frag0 = fragmentManager.findFragmentByTag("fragment_state_2");
+                transaction.addToBackStack("fragment_state_2");
+                transaction.remove(frag0);
+                Fragment frag1 = fragmentManager.findFragmentByTag("fragment_state_1");
+                transaction.add(R.id.main_activity_layout,frag1);
+                transaction.commit();
+                break;
+
+            }
+
+        }
+
+
 
 
     }
+    @Subscribe( threadMode =  ThreadMode.MAIN)
+    public void OnFragmentChangeMessageGet (MyRecyclerAdapter.ChangeFragmentToTwoEvent event)
+    {
+          fragmentStateChange(event.change_to,frag0,event.id,event.selectedYear,event.selectedMonth,event.selectedDay);
+    }
+
+
 
 
 
@@ -109,59 +162,35 @@ public class MainActivity extends AppCompatActivity implements Comunicator {
 
         }
     */}
-    private void fabricateWeeklyData(){
+    private void fabricateWeeklyData() {
         fabricated_event_year = 2017;
-        fabricated_event_month = 6;
-
-        fabricated_event_week=24;
-
-        int i,y,x;
+        fabricated_event_month =7;
+        fabricated_event_day = 19;
+        fabricated_event_week = 30;
+        fabricated_event_description = "this is planner dummy data number 2";
+        fabricated_event_place = "dummy place";
+        int i,from_hour = 0,until_hour=12,from_minutes=0,until_minutes=30;
         i=0;
-        y=4;
-        x=0;
-        fabricated_event_minute = 12;
-        fabricated_event_description = "this is dummy data";
-        fabricated_event_place = "Placey-mcplacey";
-       while(x<7&&y<11 ){
-           i=0;
-           x++;
-           fabricated_event_day = y;
-            y++;
-           while(i<10){
-            fabricated_event_hour =i;
+
+        while (i<12){
+            myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_week,fabricated_event_day,from_hour,until_hour,from_minutes,until_minutes,fabricated_event_description,fabricated_event_place);
+            from_hour++;
+            until_hour++;
+            from_minutes+=5;
+            until_minutes+=5;
             i++;
-            myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_week,x,fabricated_event_day,fabricated_event_hour,fabricated_event_minute,fabricated_event_description,fabricated_event_place);
-
-        }}
-
-
         }
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public void dateTransfer(Bundle bundle) {
-
-        viewPager.setCurrentItem(1);
-
-
     }
 
-    @Override
-    public void createInputEdit(long rowIds) {
-        input_edit frag3 = new input_edit();
-        FragmentManager manager = getFragmentManager();
 
 
 
-    }
+
+
+
+
+
+
 
     @Override
     public void onStart() {
