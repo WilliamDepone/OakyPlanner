@@ -1,6 +1,5 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+
+import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
+import com.oneoakatatime.www.oakyplanner.R;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -20,7 +21,7 @@ import java.util.TimeZone;
 /**
  * Created by User on 5/18/2017.
  */
-
+/*
 public class list_view_fragment extends android.support.v4.app.Fragment {
     int counter;
     ListView fragment_listView;
@@ -126,8 +127,8 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
 
         }
 
-   */ }
-    public void populateWeeklyListView(int year, int month, int week) {/*
+   }
+    public void populateWeeklyListView(int year, int month, int week) {
         ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment_listView);
         String[] fromDataBaseRowId = new String[0];
         selectedWeek = week;
@@ -165,14 +166,14 @@ ListView fragment_listView = (ListView) getActivity().findViewById(R.id.fragment
             }
 
         }
-*/
+
     }
 
 }
 
 
 
-
+*/
 
 
 

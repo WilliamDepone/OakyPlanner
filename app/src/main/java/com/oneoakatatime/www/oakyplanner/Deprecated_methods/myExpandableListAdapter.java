@@ -1,4 +1,4 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -8,13 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.TextView;
 
+import com.oneoakatatime.www.oakyplanner.R;
+
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by User on 6/14/2017.
  */
-
+/*
 public class myExpandableListAdapter implements ExpandableListAdapter  {
     Context context;
     List weekDays;
@@ -139,3 +141,5 @@ public class myExpandableListAdapter implements ExpandableListAdapter  {
         return 0;
     }
 }
+
+*/

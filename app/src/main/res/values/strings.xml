@@ -18,4 +18,5 @@
     <string name="row_detail_menu_delete">Delete</string>
     <string name="row_menu_details_details">More details</string>
     <string name="input_edit_save_button">SAVE</string>
+    <string name="remind_me_textView_input_edit">Remind me</string>
 </resources>

@@ -31,6 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String MINUTE_UNTIL = "MINUTE_UNTIL";
     public static final String EVENT_DESCRIPTION = "EVENT_DESCRIPTION";
     public static final String PLACE = "PLACE";
+    public static final String REMINDER = "REMINDER";
     public static final String NICKNAME = "NICKNAME";
     public static final String PASSWORD = "PASSWORD";
     public static final String AGE = "AGE";
@@ -44,7 +45,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 try{
-    db.execSQL("create table " + TABLE_NAME_1 + "(ID_1 INTEGER PRIMARY KEY AUTOINCREMENT,YEAR INTEGER,MONTH INTEGER,WEEK INTEGER,DAY INTEGER,HOUR_FROM INTEGER,HOUR_UNTIL INTEGER,MINUTE_FROM INTEGER,MINUTE_UNTIL INTEGER,EVENT_DESCRIPTION TEXT,PLACE TEXT)");
+    db.execSQL("create table " + TABLE_NAME_1 + "(ID_1 INTEGER PRIMARY KEY AUTOINCREMENT,YEAR INTEGER,MONTH INTEGER,WEEK INTEGER,DAY INTEGER,HOUR_FROM INTEGER,HOUR_UNTIL INTEGER,MINUTE_FROM INTEGER,MINUTE_UNTIL INTEGER,EVENT_DESCRIPTION TEXT,PLACE TEXT,REMINDER TEXT)");
         db.execSQL("create table " + TABLE_NAME_2 +"(ID_2 INTEGER PRIMARY KEY AUTOINCREMENT,NICKNAME TEXT,PASSWORD TEXT,AGE INTEGER,GENDER TEXT)");
 }
 catch(Exception e){
@@ -61,7 +62,7 @@ catch(Exception e){
        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_NAME_2);
         onCreate(db);
     }
-    public boolean insertData1(int year, int month,int week, int day, int hour_from,int hour_until,int minute_from,int minute_until ,String event_description,String place ){
+    public boolean insertData1(int year, int month,int week, int day, int hour_from,int hour_until,int minute_from,int minute_until ,String event_description,String place ,String reminder){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(YEAR,year);
@@ -75,6 +76,7 @@ catch(Exception e){
         contentValues.put(MINUTE_UNTIL,minute_until);
         contentValues.put(EVENT_DESCRIPTION,event_description);
         contentValues.put(PLACE,place);
+        contentValues.put(REMINDER,reminder);
          long result = db.insert(TABLE_NAME_1,null,contentValues);
 
         if (result == -1)

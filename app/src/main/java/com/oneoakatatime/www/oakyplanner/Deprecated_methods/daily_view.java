@@ -1,6 +1,5 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -9,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 
+import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
+import com.oneoakatatime.www.oakyplanner.MainActivity;
+import com.oneoakatatime.www.oakyplanner.R;
+import com.oneoakatatime.www.oakyplanner.getCurrentDateInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -25,6 +27,7 @@ import java.util.TimeZone;
  */
 //TODO CURRENTLY SELECTED DAY EVENTS GET DISPLAYED ON THE TAB
 //TODO UPON LONG CLICKING AN ITEM IN THE LIST YOU CAN ADD OR EDIT EVENT CORESPONDING TO THE TIME("PLACE") IT HAS BEEN CLICKED ON
+    /*
 public class daily_view extends android.support.v4.app.Fragment {
     int counter;
 
@@ -124,48 +127,14 @@ public class daily_view extends android.support.v4.app.Fragment {
             }
 
         }
-        return fromDataBaseRowId;*/
+        return fromDataBaseRowId;
+
+
+
 
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = new Bundle();
-        tz = TimeZone.getDefault();
-        java.util.Calendar calendarForWeek = new GregorianCalendar(tz);
-        selectedDay = bundle.getInt("selected_day", calendarForWeek.get(java.util.Calendar.DAY_OF_MONTH));
-        getCurrentDateInfo dat = new getCurrentDateInfo();
-        currentDate = dat.getInfo();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void OnWeekAcquisition (monthlyView.CurrentWeekSelected event){
-        week = event.weekNumber;
-        selectedYear = event.yearNumber;
-        selectedMonth = event.monthNumber;
-
-    }
-    @Subscribe (threadMode = ThreadMode.POSTING)
-    public void remoteDailyListViewPopulation (MainActivity.remoteDailyListViewPopulation event){
-
-
-            selectedYear = event.passYear;
-            selectedMonth = event.passMonth;
-            selectedDay = event.passDay;
-        populateDailyListView(selectedYear,selectedMonth,selectedDay);
-    }
 
 
 }
+*/

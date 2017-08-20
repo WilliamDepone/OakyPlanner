@@ -1,4 +1,4 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
 import android.util.Log;
 import android.view.MotionEvent;
@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 /**
  * Created by User on 5/24/2017.
  */
+/*
 
 public class SwipeDetector implements View.OnTouchListener {
     public static enum Action {
@@ -81,3 +82,4 @@ public class SwipeDetector implements View.OnTouchListener {
         return false;
     }
 }
+*/

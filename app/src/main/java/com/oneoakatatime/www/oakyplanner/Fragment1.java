@@ -26,6 +26,8 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -90,6 +92,7 @@ public class Fragment1 extends android.app.Fragment {
                 changeddatearray[2]= date.getDay();
                 currentlySelectedDayData currentData = new currentlySelectedDayData(changeddatearray[0],changeddatearray[1],changeddatearray[2]);
                 repopulateRecyclerView(month_event_list,changeddatearray,myDb,currentData);
+                EventBus.getDefault().post(new currentlySelectedDayData(currentData.year,currentData.month,currentData.day));
             }
         });
 

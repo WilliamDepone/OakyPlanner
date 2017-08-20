@@ -2,14 +2,16 @@ package com.oneoakatatime.www.oakyplanner;
 
 
 
+import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.Fragment;
-import android.database.Cursor;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.app.FragmentManager;
-
+import android.view.Menu;
+import android.view.MenuItem;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,16 +29,18 @@ public class MainActivity extends AppCompatActivity {
 
     DataBaseHelper myDb;
     int selectedYear,selectedMonth,selectedDay,selectedWeek;
-
-    NonSwipeableViewPager viewPager;
-
-
+    Bundle bundle = new Bundle();
+    android.support.v7.app.ActionBar actionBar;
+    MenuItem action_bar_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDb = new DataBaseHelper(this);
+
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         //fabricateWeeklyData();
         id = 0;
          fragmentStateChange(id,null,0,0,0,0);
@@ -79,7 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void  fragmentStateChange(int id,Fragment frag0,int event_id,int selectedYear,int selectedMonth, int selectedDay){
+
+
+
+    private void  fragmentStateChange(int id, Fragment frag0, int event_id, int selectedYear, int selectedMonth, int selectedDay){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction  transaction = fragmentManager.beginTransaction();
 
@@ -99,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.remove(frag0);
                 input_edit frag1 = new input_edit();
                 Bundle bundle = new Bundle();
+                bundle.putBoolean("New?",false );
                 bundle.putInt("Event id",event_id);
                 bundle.putInt("Selected year",selectedYear);
                 bundle.putInt("Selected month",selectedMonth);
@@ -117,8 +125,33 @@ public class MainActivity extends AppCompatActivity {
                 Fragment frag1 = fragmentManager.findFragmentByTag("fragment_state_1");
                 transaction.add(R.id.main_activity_layout,frag1);
                 transaction.commit();
+                action_bar_button.setEnabled(true);
+                actionBar.invalidateOptionsMenu();
+
                 break;
 
+            }
+            case 3:{
+                AlarmNotificationFragment frag = new AlarmNotificationFragment();
+                transaction.add(R.id.main_activity_layout,frag,"alarm_fragment_state");
+                transaction.addToBackStack("alarm_fragment_state");
+                transaction.commit();
+                break;
+
+            }
+            case 4:{
+                frag0 =  fragmentManager.findFragmentByTag("fragment_state_1");
+                transaction.addToBackStack("fragment_state_1");
+                transaction.remove(frag0);
+                input_edit frag1 = new input_edit();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("New?",true );
+                bundle.putInt("Selected year",selectedYear);
+                bundle.putInt("Selected month",selectedMonth);
+                bundle.putInt("Selected day",selectedDay);
+                frag1.setArguments(bundle);
+                transaction.add(R.id.main_activity_layout,frag1,"fragment_state_2");
+                transaction.commit();
             }
 
         }
@@ -127,14 +160,46 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     @Subscribe( threadMode =  ThreadMode.MAIN)
     public void OnFragmentChangeMessageGet (MyRecyclerAdapter.ChangeFragmentToTwoEvent event)
     {
           fragmentStateChange(event.change_to,frag0,event.id,event.selectedYear,event.selectedMonth,event.selectedDay);
     }
+    @Subscribe( threadMode =  ThreadMode.MAIN)
+    public Bundle OnDateChangeMessageGet (Fragment1.currentlySelectedDayData event)
+    {
 
+        bundle.putInt("Selected day",event.day);
+        bundle.putInt("Selected month",event.month);
+        bundle.putInt("Selected year",event.year);
+        return bundle;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        if(item.getItemId() == R.id.a){
+            getCurrentDateInfo todaysInfoObj = new getCurrentDateInfo();
+            int[] todaysInfoArray =  todaysInfoObj.getInfo();
+            action_bar_button = item;
+            item.setEnabled(false);
+            actionBar.invalidateOptionsMenu();
+           if(bundle == null){
+
+            fragmentStateChange(4,null,0,todaysInfoArray[0],todaysInfoArray[1],todaysInfoArray[2]);}
+            else {
+               fragmentStateChange(4,null,0,bundle.getInt("Selected year"),bundle.getInt("Selected month"),bundle.getInt("Selected day"));
+           }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     /* TODO DONT FORGET TO REMOVE THIS BEFORE RELEASE... FUDGE */
@@ -173,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
         i=0;
 
         while (i<12){
-            myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_week,fabricated_event_day,from_hour,until_hour,from_minutes,until_minutes,fabricated_event_description,fabricated_event_place);
+            myDb.insertData1(fabricated_event_year,fabricated_event_month,fabricated_event_week,fabricated_event_day,from_hour,until_hour,from_minutes,until_minutes,fabricated_event_description,fabricated_event_place,"Exact time");
             from_hour++;
             until_hour++;
             from_minutes+=5;
@@ -232,12 +297,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    @Subscribe(threadMode = ThreadMode.POSTING)
-    public void OnWeekAcquisition (monthlyView.CurrentWeekSelected event){
-        selectedWeek = event.weekNumber;
-        selectedYear = event.yearNumber;
-        selectedMonth = event.monthNumber;
-        selectedDay = event.dayNumber;
-    }
+
 
 }

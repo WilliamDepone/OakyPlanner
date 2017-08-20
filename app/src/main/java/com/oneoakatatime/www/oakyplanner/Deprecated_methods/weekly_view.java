@@ -1,4 +1,4 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
 import android.database.Cursor;
 import android.icu.util.Calendar;
@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+
+import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
+import com.oneoakatatime.www.oakyplanner.MainActivity;
+import com.oneoakatatime.www.oakyplanner.R;
+import com.oneoakatatime.www.oakyplanner.getCurrentDateInfo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +36,7 @@ import static com.oneoakatatime.www.oakyplanner.DataBaseHelper.DAYOFWEEK;
  * Created by User on 5/30/2017.
  */
 //TODO MAKE THIS AN EXPANDABLE LIST VIEW, BECAUSE REASONS
+    /*
 public class weekly_view extends android.support.v4.app.Fragment {
     int counter;
 
@@ -291,7 +297,7 @@ public class weekly_view extends android.support.v4.app.Fragment {
      }else y++;
      }
      x++;
-     }*/
+     }
 
 
 
@@ -299,3 +305,4 @@ public class weekly_view extends android.support.v4.app.Fragment {
      }
 
 }
+*/

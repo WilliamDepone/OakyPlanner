@@ -12,8 +12,8 @@
 
     <TextView
         android:id="@+id/input_hours"
-        android:layout_width="44dp"
-        android:layout_height="17dp"
+        android:layout_width="60dp"
+        android:layout_height="21dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -28,18 +28,22 @@
         tools:layout_conversion_absoluteHeight="16dp"
         tools:layout_conversion_absoluteWidth="137dp"
         tools:layout_conversion_absoluteX="0dp"
-        tools:layout_conversion_absoluteY="0dp" />
+        tools:layout_conversion_absoluteY="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Spinner
         android:id="@+id/input_hours_spinner_from"
-        android:layout_width="80dp"
+        android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -51,18 +55,20 @@
 
     <Spinner
         android:id="@+id/input_hours_spinner_until"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
+        android:layout_width="110dp"
+        android:layout_height="24dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
+        app:layout_constraintHorizontal_bias="0.232"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134"
+        app:layout_constraintVertical_bias="0.133"
         tools:layout_conversion_absoluteHeight="24dp"
         tools:layout_conversion_absoluteWidth="48dp"
         tools:layout_conversion_absoluteX="137dp"
@@ -70,7 +76,7 @@
 
     <TextView
         android:id="@+id/input_minutes"
-        android:layout_width="36dp"
+        android:layout_width="59dp"
         android:layout_height="19dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -86,38 +92,44 @@
         tools:layout_conversion_absoluteHeight="16dp"
         tools:layout_conversion_absoluteWidth="150dp"
         tools:layout_conversion_absoluteX="185dp"
-        tools:layout_conversion_absoluteY="0dp" />
+        tools:layout_conversion_absoluteY="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Spinner
         android:id="@+id/input_minutes_spinner_from"
-        android:layout_width="80dp"
-        android:layout_height="24dp"
+        android:layout_width="110dp"
+        android:layout_height="27dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.016"
+        app:layout_constraintVertical_bias="0.017"
         tools:layout_conversion_absoluteHeight="24dp"
         tools:layout_conversion_absoluteWidth="48dp"
         tools:layout_conversion_absoluteX="336dp"
-        tools:layout_conversion_absoluteY="0dp" />
+        tools:layout_conversion_absoluteY="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
     <Spinner
         android:id="@+id/input_minutes_spinner_until"
-        android:layout_width="80dp"
+        android:layout_width="110dp"
         android:layout_height="24dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -129,8 +141,8 @@
 
     <TextView
         android:id="@+id/fragment_place"
-        android:layout_width="45dp"
-        android:layout_height="26dp"
+        android:layout_width="69dp"
+        android:layout_height="29dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -145,7 +157,9 @@
         tools:layout_conversion_absoluteHeight="29dp"
         tools:layout_conversion_absoluteWidth="69dp"
         tools:layout_conversion_absoluteX="0dp"
-        tools:layout_conversion_absoluteY="38dp" />
+        tools:layout_conversion_absoluteY="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/input_place_edit"
@@ -166,12 +180,14 @@
         tools:layout_conversion_absoluteHeight="42dp"
         tools:layout_conversion_absoluteWidth="315dp"
         tools:layout_conversion_absoluteX="69dp"
-        tools:layout_conversion_absoluteY="24dp" />
+        tools:layout_conversion_absoluteY="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
     <TextView
         android:id="@+id/fragment_description"
-        android:layout_width="80dp"
+        android:layout_width="76dp"
         android:layout_height="19dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -187,7 +203,9 @@
         tools:layout_conversion_absoluteHeight="16dp"
         tools:layout_conversion_absoluteWidth="119dp"
         tools:layout_conversion_absoluteX="0dp"
-        tools:layout_conversion_absoluteY="80dp" />
+        tools:layout_conversion_absoluteY="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <EditText
         android:id="@+id/input_description_edit"
@@ -208,13 +226,15 @@
         tools:layout_conversion_absoluteHeight="42dp"
         tools:layout_conversion_absoluteWidth="264dp"
         tools:layout_conversion_absoluteX="119dp"
-        tools:layout_conversion_absoluteY="66dp" />
+        tools:layout_conversion_absoluteY="66dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
     <Button
         android:id="@+id/input_button"
-        android:layout_width="214dp"
-        android:layout_height="42dp"
+        android:layout_width="384dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -228,7 +248,40 @@
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="384dp"
         tools:layout_conversion_absoluteX="0dp"
-        tools:layout_conversion_absoluteY="109dp" />
+        tools:layout_conversion_absoluteY="109dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/remind_me_textView_input_edit"
+        android:layout_width="75dp"
+        android:layout_height="26dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/remind_me_textView_input_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.594" />
+
+    <Spinner
+        android:id="@+id/input_edit_reminder_spinner"
+        android:layout_width="151dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.592" />
 
 
 </android.support.constraint.ConstraintLayout>

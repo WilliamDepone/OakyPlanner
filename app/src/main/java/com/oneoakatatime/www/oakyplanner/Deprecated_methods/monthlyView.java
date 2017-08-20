@@ -1,6 +1,5 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
-import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 
+import com.oneoakatatime.www.oakyplanner.DataBaseHelper;
+import com.oneoakatatime.www.oakyplanner.R;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,6 +24,7 @@ import java.util.TimeZone;
  * Created by User on 5/28/2017.
  */
 // TODO POTENTIONAL SOLUTIONS : 1) IT COULD BE SOMETHING WITH THE FRAGMENT LIFE CYCLE (on resume might have to be initiated) 2) A THOROUGH EXAMINATION MIGHT BE NECSESSARY 3) THE PROBLEM MIGHT BE SOMETHING WITH THE CONTEXT.
+/*
 public class monthlyView extends android.support.v4.app.Fragment {
     int counter;
 
@@ -198,7 +199,7 @@ public class monthlyView extends android.support.v4.app.Fragment {
 
         }
 
-       */
+
     }
     public static monthlyView newInstance() {
 
@@ -245,3 +246,4 @@ public class monthlyView extends android.support.v4.app.Fragment {
     }
 
 }
+*/

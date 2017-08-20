@@ -1,11 +1,9 @@
-package com.oneoakatatime.www.oakyplanner;
+package com.oneoakatatime.www.oakyplanner.Deprecated_methods;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -14,7 +12,7 @@ import java.util.TimeZone;
 /**
  * Created by User on 5/28/2017.
  */
-
+/*
 public class SwipeAdapter extends FragmentStatePagerAdapter {
     private String tabTitles[] = new String[]{"MONTH", "WEEK","DAY"};
 
@@ -67,3 +65,4 @@ public class SwipeAdapter extends FragmentStatePagerAdapter {
 
 
 }
+*/
